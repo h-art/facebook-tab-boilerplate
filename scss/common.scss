@@ -1,0 +1,342 @@
+/* Generated with Sass 3.2.1 */
+
+// === Sass	Main definitions ===
+// @Author : Fabrizio Calderan
+// @Date   : Mon Nov 12 13:05:43 2012
+
+$base-color: #c5cbce;
+$compl1: adjust-hue($base-color, 180);
+$compl2: adjust-hue($compl1, 90);
+$light1: lighten($base-color, 12%);
+$light2: lighten($base-color, 24%);
+
+//* testcolor
+.c1 { background-color: $base-color; }
+.c2 { background-color: $compl1; }
+.c3 { background-color: $compl2; }
+.c4 { background-color: $light1; }
+.c5 { background-color: $light2; }
+
+
+
+//* === Mixins === */
+
+
+@mixin box-sizing($box) {
+    -webkit-box-sizing: $box;
+       -moz-box-sizing: $box;
+            box-sizing: $box;
+}
+
+@mixin border-radius($val) {
+    -webkit-border-radius: $val;
+       -moz-border-radius: $val;
+            border-radius: $val;
+}
+
+@mixin box-shadow($val) {
+    -webkit-box-shadow: $val;
+       -moz-box-shadow: $val;
+            box-shadow: $val;
+}
+
+@mixin transition($val) {
+    -webkit-transition: $val;
+       -moz-transition: $val;
+        -ms-transition: $val;
+         -o-transition: $val;
+            transition: $val;
+}
+
+@mixin radial-gradient($val) {
+	background-image: -webkit-radial-gradient(#{$val});
+	background-image: -msie-radial-gradient(#{$val});
+	background-image: -moz-radial-gradient(#{$val});
+	background-image: -o-radial-gradient(#{$val});
+	background-image: radial-gradient(#{$val});
+}
+
+
+@mixin animate($val) {
+    -webkit-animate: $val;
+       -moz-animate: $val;
+        -ms-animate: $val;
+         -o-animate: $val;
+            animate: $val;
+}
+
+@mixin calc($prop, $expr, $legacy: null) {
+	@if $legacy != null {
+		#{$prop}	: #{$legacy};		/* Safari < 6 */
+	}
+    #{$prop}: -webkit-calc(#{$expr});   /* WebKit 536.3 (Chrome 19) and above, experimental */
+    #{$prop}:    -moz-calc(#{$expr});   /* Gecko 2.0 (Firefox 4) and above, experimental, will be dropped */
+    #{$prop}:         calc(#{$expr});   /* final CSS3 compliant implementation; Firefox 16 and IE 9, and above */
+}
+
+
+@mixin truncate($truncation-boundary: '100%') {
+    max-width		: #{$truncation-boundary};
+    white-space 	: nowrap;
+    overflow		: hidden;
+    text-overflow	: ellipsis;
+}
+
+@mixin fontface($name, $url, $weight: 'normal', $style : 'normal') {
+    @font-face {
+        font-family: $name;
+
+        src: url('#{$url}.eot');
+        src: url('#{$url}.eot?#iefix') format('embedded-opentype'),
+             url('#{$url}.woff') format('woff'),
+             url('#{$url}.ttf') format('truetype'),
+             url('#{$url}.svg##{$name}') format('svg');
+
+        font-weight   : $weight;
+        font-style    : $style;
+        unicode-range : U+00-017C;
+    }
+}
+
+@mixin color($color) {
+    color: $color;
+    text-decoration: none;
+    &:link, &:visited, &:hover, &:focus, &:active {
+        color   : $color;
+    }
+}
+
+@mixin cursor($url) {
+	cursor : url(#{$url}), auto;
+	.lte-ie8 & {
+		cursor : url(#{$url});
+	}
+}
+
+
+//* === mediaqueries === */
+
+$desktop-large  : 1440;
+$desktop-medium : 1280;
+$desktop        : 1024;
+$tablet			: 768;
+$mobile-large	: 640;
+$mobile-medium	: 480;
+$mobile			: 320;
+$smallmobile	: 200;
+
+$high-density   : "only screen and (min--moz-device-pixel-ratio: 1.5),
+				   only screen and (-o-min-device-pixel-ratio: 3/2),
+			       only screen and (-webkit-min-device-pixel-ratio: 1.5),
+		           only screen and (min-resolution: 1.5dppx)";
+
+$fix-mqs: false !default;
+//$fix-mqs: 320;
+
+@mixin respond-to($mq) {
+	@if $fix-mqs {
+		@if $fix-mqs >= $mq {
+			@content;
+		}
+	}
+	@else {
+	    @media screen and (min-width: #{$mq}px) { @content }
+	}
+}
+
+body.debug:before {
+	position: fixed;
+	z-index	: 32767;
+	top: 1px; right: 1px;
+	padding : 3px 10px;
+	background: #f2f2f2;
+	color: #313131;
+	opacity: .6;
+	font: 12px Arial;
+	@include respond-to($smallmobile)	 { content: "min-width: #{$smallmobile}px"; }
+	@include respond-to($mobile) 		 { content: "min-width: #{$mobile}px"; }
+	@include respond-to($mobile-medium)  { content: "min-width: #{$mobile-medium}px"; }
+	@include respond-to($mobile-large) 	 { content: "min-width: #{$mobile-large}px"; }
+	@include respond-to($tablet) 		 { content: "min-width: #{$tablet}px"; }
+	@include respond-to($desktop)        { content: "min-width: #{$desktop}px";  }
+	@include respond-to($desktop-medium) { content: "min-width: #{$desktop-medium}px"; }
+	@include respond-to($desktop-large)  { content: "min-width: #{$desktop-large}px";  }
+}
+
+
+//* === Retina images === */
+// Usage:  @include image-2x("logo2x.png", 100px, 25px);
+@mixin image-2x($image, $width, $height) {
+	@media #{$high-density} {
+	background-image: url($image);
+	background-size: $width $height;
+  }
+}
+
+
+//* === sprites (1 class) === */
+
+@mixin sprite-pos($pos) {
+	background-position: $pos;
+}
+
+%sprite {
+	background: url(imgs/sprite.png) no-repeat 0 0;
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	@include image-2x("logo2x.png", 200px, 20px);
+}
+
+@mixin createsprite($pos, $class: "%sprite") {
+	@extend #{$class};
+	@include sprite-pos($pos);
+}
+
+//* Test */
+// .icon-1 { @include createsprite(-25px 0); }
+// .icon-2 { @include createsprite(-50px 0); }
+
+
+//* === Retina images === */
+// Usage:  @include image-2x("logo2x.png", 100px, 25px);
+
+@mixin image-2x($image, $width, $height) {
+	@media #{$high-density} {
+	background-image: url($image);
+	background-size: $width $height;
+  }
+}
+
+//* === Extend (Abstract classes) === */
+
+/* Set box-sizing */
+%borderbox  { @include box-sizing(border-box);  }
+%contentbox { @include box-sizing(content-box); }
+
+* {
+	@extend %borderbox;
+}
+
+%clearfix {
+    &:before, &:after { content: ""; display: table; }
+    &:after { clear: both; }
+    *zoom: 1;
+}
+
+
+//* === Image replacement === */
+%ir {
+    text-indent: 100%;
+       overflow: hidden;
+        display: block;
+           font: 0/0 a;
+}
+
+//* === Inline blocks === */
+
+@mixin inlineblock($el: 'li', $valign: 'top') {
+    font-size	: 0;
+	> #{$el} {
+		display 	: inline-block;
+		font-size   : 10px; /* IE8 */
+		font-size   : 1rem;
+		vertical-align : #{$valign};
+ 	}
+}
+
+
+
+article,aside,details,figcaption,figure,footer,header,hgroup,nav,section,summary{display:block;}
+audio,canvas,video{display:inline;zoom:1;}
+audio:not([controls]){display:none;height:0;}
+[hidden]{display:none;}
+html{font-size:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+html,button,input,select,textarea{font-family:sans-serif;}
+a:focus{outline:thin dotted;}
+a:active,a:hover{outline:0;}
+abbr[title]{border-bottom:1px dotted;}
+b,strong{font-weight:700;}
+blockquote{margin:1em 40px;}
+dfn{font-style:italic;}
+mark{background:#ff0;color:#000;}
+code,kbd,pre,samp{font-family:monospace, serif;_font-family:'courier new', monospace;font-size:1em;}
+pre{white-space:pre-wrap;word-wrap:break-word;}
+q{quotes:none;}
+q:before,q:after{content:none;}
+small{font-size:80%;}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline;}
+sup{top:-.5em;}
+sub{bottom:-.25em;}
+dd{margin:0;}
+menu,ol,ul{padding:0;}
+nav ul,nav ol{list-style:none;list-style-image:none;}
+img{border:0;-ms-interpolation-mode:bicubic;}
+svg:not(:root){overflow:hidden;}
+fieldset{border:0;margin:0;padding:0;}
+legend{border:0;white-space:normal;margin-left:-7px;padding:0;}
+button,input,select,textarea{font-size:100%;vertical-align:middle;margin:0;}
+button,input{line-height:normal;}
+button,html input[type=button],/* 1 */
+input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer;overflow:visible;}
+button[disabled],input[disabled]{cursor:default;}
+input[type=checkbox],input[type=radio]{box-sizing:border-box;height:13px;width:13px;padding:0;}
+input[type=search]{-webkit-appearance:textfield;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box;}
+input[type=search]::-webkit-search-cancel-button,input[type=search]::-webkit-search-decoration{-webkit-appearance:none;}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0;}
+textarea{overflow:auto;vertical-align:top;}
+table{border-collapse:collapse;border-spacing:0;}
+body,figure,form{margin:0;}
+p,pre,dl,menu,ol,ul{margin:1em 0;}
+body, html { margin: 0; padding: 0; font-size: 10px; }
+/* end boilerplate */
+
+
+#fb-tab-debug {
+	position: fixed;
+	z-index: 1000;
+	background: rgba(228,227,236, .5);
+	padding: 10px 30px;
+	width: 100%;
+	@extend %borderbox;
+
+	a {
+		text-decoration: none;
+		@include color(#4a4a4a);
+		font-size: 1.2em;
+	}
+}
+
+#tab {
+	width: 810px;
+	margin: 0 auto;
+
+	> section {
+		position: relative;
+		z-index: 1;
+		width: 100%;
+	}
+}
+
+#prelike {
+}
+
+#postlike {
+}
+
+
+
+@media print {
+*{background:transparent!important;color:#333!important;box-shadow:none!important;text-shadow:none!important;float:none!important;position:static!important;}
+a,a:visited{text-decoration:underline;}
+a[href]:after{content:" (" attr(href) ")";}
+abbr[title]:after{content:" (" attr(title) ")";}
+a[href^="#"]:after{content:"";}
+pre,blockquote{border:1px solid #999;page-break-inside:avoid;}
+thead{display:table-header-group;}
+tr,img{page-break-inside:avoid;}
+img{max-width:100%!important;}
+@page{margin:.5cm;}
+p,h2,h3{orphans:3;widows:3;}
+h2,h3{page-break-after:avoid;}
+}
