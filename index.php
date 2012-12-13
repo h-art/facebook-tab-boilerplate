@@ -4,12 +4,12 @@ include_once "include/request.php";
 /**
  * Steps:
  *
- * 1) App registration https://developers.facebook.com/apps
+ * 1) Registrazione dell'App : https://developers.facebook.com/apps
  * 2) Settare le variabili in accordo con le chiavi generate dell'app
  *    e impostare l'URL della tab (per la generazione della dialog)
  */
-	$appId     = "431993416868437";
-	$appSecret = "8bc8ef73782d32c2c14ba69502dc31f4";
+	$appId     = "12345678901234";
+	$appSecret = "1234567890abcdef1234567890abcdef";
 	$pageURL   = "";
 
  /**
