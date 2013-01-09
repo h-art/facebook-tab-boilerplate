@@ -29,7 +29,7 @@ $data = getSignedRequest($appSecret);
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"    content="width=device-width">
-    <meta name="author"      content="H-art 2012">
+    <meta name="author"      content="H-art <?php echo date('Y'); ?>">
 
     <!-- ::CSS -->
     <link rel="stylesheet" href="css/common.css" />
